@@ -64,7 +64,7 @@
   cursor: pointer;
 }
 
-/* Other Sections — keep your same styles */
+/* Other Sections */
 .welcome {
   display: flex;
   padding: 50px;
@@ -157,4 +157,70 @@
   background: #003d2b;
   color: #00ff9d;
   font-size: 2rem;
+}
+
+/* Hamburger Base */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 20;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* When active (X icon) */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .welcome {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .accom-grid,
+  .suite-grid,
+  .promo-grid,
+  .press-grid {
+    flex-direction: column;
+    align-items: center;
+  }
 }
