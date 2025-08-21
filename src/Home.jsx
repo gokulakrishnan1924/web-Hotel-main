@@ -1,43 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Close menu when resizing back to desktop
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
-    <div className="home">
+    <div className={`home ${menuOpen ? "no-scroll" : ""}`}>
+      {/* Backdrop when menu open (mobile) */}
+      {menuOpen && <div className="backdrop" onClick={() => setMenuOpen(false)} />}
+
       {/* Navbar */}
-      <nav className="navbar">
+      <nav className={`navbar ${menuOpen ? "menu-open" : ""}`}>
         <div className="logo">Weboin</div>
 
-        {/* Hamburger Menu */}
-        <div
+        {/* Hamburger */}
+        <button
           className={`hamburger ${menuOpen ? "active" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="navLinks"
         >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
 
         {/* Nav Links */}
-        <ul className={`nav-links ${menuOpen ? "show" : ""}`}>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">Rooms</a>
-          </li>
-          <li>
-            <a href="#">Dining</a>
-          </li>
-          <li>
-            <a href="#">Offers</a>
-          </li>
-          <li>
-            <a href="#">Contact</a>
-          </li>
+        <ul id="navLinks" className={`nav-links ${menuOpen ? "show" : ""}`} onClick={() => setMenuOpen(false)}>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Rooms</a></li>
+          <li><a href="#">Dining</a></li>
+          <li><a href="#">Offers</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
       </nav>
 
@@ -72,27 +77,15 @@ function Home() {
         <div className="accom-grid">
           <div>
             <img src="https://picsum.photos/300/200?1" alt="Deluxe Room" />
-            <p>
-              De Luxe Room
-              <br />
-              from $299 a night
-            </p>
+            <p>De Luxe Room<br />from $299 a night</p>
           </div>
           <div>
             <img src="https://picsum.photos/300/200?2" alt="Sea View" />
-            <p>
-              De Luxe Sea View
-              <br />
-              from $399 a night
-            </p>
+            <p>De Luxe Sea View<br />from $399 a night</p>
           </div>
           <div>
             <img src="https://picsum.photos/300/200?3" alt="Family Suite" />
-            <p>
-              The Alon Family Suite
-              <br />
-              from $599 a night
-            </p>
+            <p>The Alon Family Suite<br />from $599 a night</p>
           </div>
         </div>
       </section>
@@ -101,12 +94,8 @@ function Home() {
       <section className="family-suite">
         <h2>The Family Suite</h2>
         <div className="suite-grid">
-          <div>
-            <img src="https://picsum.photos/400/250?4" alt="Suite Bed" />
-          </div>
-          <div>
-            <img src="https://picsum.photos/400/250?5" alt="Suite Bath" />
-          </div>
+          <div><img src="https://picsum.photos/400/250?4" alt="Suite Bed" /></div>
+          <div><img src="https://picsum.photos/400/250?5" alt="Suite Bath" /></div>
         </div>
       </section>
 
@@ -133,15 +122,9 @@ function Home() {
       <section className="press">
         <h2>In the Press</h2>
         <div className="press-grid">
-          <div>
-            <p>"Boost your product and service's credibility..."</p>
-          </div>
-          <div>
-            <p>"Boost your product and service's credibility..."</p>
-          </div>
-          <div>
-            <p>"Boost your product and service's credibility..."</p>
-          </div>
+          <div><p>"Boost your product and service's credibility..."</p></div>
+          <div><p>"Boost your product and service's credibility..."</p></div>
+          <div><p>"Boost your product and service's credibility..."</p></div>
         </div>
       </section>
 
@@ -150,26 +133,15 @@ function Home() {
         <div className="footer-top">
           <div>
             <h4>RESERVATIONS OFFICE</h4>
-            <p>
-              123 Anywhere St.
-              <br />
-              Any City ST 12345
-            </p>
+            <p>123 Anywhere St.<br />Any City ST 12345</p>
             <p>hello@reallygreatsite.com</p>
           </div>
           <div>
             <h4>OFFICE HOURS</h4>
-            <p>
-              Mon - Fri: 9:00 am to 6:00 pm
-              <br />
-              Sat: 9:00 am to 12:00 noon
-            </p>
+            <p>Mon - Fri: 9:00 am to 6:00 pm<br />Sat: 9:00 am to 12:00 noon</p>
           </div>
           <div className="social-icons">
-            <FaFacebookF />
-            <FaTwitter />
-            <FaInstagram />
-            <FaYoutube />
+            <FaFacebookF /><FaTwitter /><FaInstagram /><FaYoutube />
           </div>
         </div>
         <h2 className="footer-logo">Weboin Hotel</h2>
