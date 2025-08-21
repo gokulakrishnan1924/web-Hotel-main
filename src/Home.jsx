@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="home">
       {/* Navbar */}
       <nav className="navbar">
         <div className="logo">Weboin</div>
-        <ul className="nav-links">
+
+        {/* Hamburger Menu */}
+        <div
+          className={`hamburger ${menuOpen ? "active" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        {/* Nav Links */}
+        <ul className={`nav-links ${menuOpen ? "show" : ""}`}>
           <li>
             <a href="#">Home</a>
           </li>
